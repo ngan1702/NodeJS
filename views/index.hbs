@@ -1,0 +1,118 @@
+<h1><b>{{title}}</b></h1>
+
+    <br>
+    <form name="frm" method="post">
+        <div class="row">
+            <div class="col-2">
+                Số thứ nhất
+                <br>
+                <br>
+            </div>
+            <div class="col">            
+                <input type="text" name="expr1" value="{{expr1}}" size="15" onkeyup="check(this.form)">
+                &nbsp;
+                <input type="radio" id="add" name="calculation" value="cong">
+                <label for="cong">Cộng</label>
+                &nbsp;
+                <input type="radio" id="sub" name="calculation" value="tru">
+                <label for="tru">Trừ</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                Số thứ hai
+                <br>
+                <br>
+            </div>
+            <div class="col">
+                <input type="text" name="expr2" value="{{expr2}}" size="15" onkeyup="check(this.form)">
+                &nbsp;
+                <input type="radio" id="pro" name="calculation" value="nhan">
+                <label for="nhan">Nhân</label>
+                &nbsp;
+                <input type="radio" id="div" name="calculation" value="chia">
+                <label for="chia">Chia</label>               
+            </div>       
+        </div>
+            
+        <div class="row">
+            <div class="col-2">
+                Kết quả
+                <br>
+                <br>
+            </div>
+            <div class="col">
+                <input type="text" value="{{result}}" name="res" size="15">
+                &nbsp;
+                <input type="button" value="Tính" onclick="print(this.form)">
+            </div>
+        </div>    
+        <div class="row">
+            <div class="col-2">
+                Thông báo
+            </div>
+            <div class="col">
+                <span id="inform" ></span>
+            </div>
+        </div>                                                                                               
+</form>
+
+    <script type="text/javascript">
+        function cal(ex1,ex2,ope) 
+        {    
+            var x = new Number(ex1);
+            var y = new Number(ex2);
+        
+            if (x== ""|| y== "")
+                return "loi1";
+            else
+            {          
+                if (ope==="cong")       
+                    return x+y;
+                else if (ope==="tru")       
+                    return x-y;
+                else if (ope==="nhan")       
+                    return x*y;
+                else if (ope==="chia")       
+                    return x/y;
+            }
+        }
+        function print(frm)
+        {
+            var result = cal(frm.expr1.value,frm.expr2.value,frm.calculation.value);
+            if (result==undefined)
+                inform("Vui lòng chọn phép tính");
+            else if (result=="loi1")
+                inform("Vui lòng nhập đủ 2 số hạng");
+            else if (isNaN(result))
+                inform("Số hạng không hợp lệ");
+            else    
+            {
+                frm.res.value=result;
+                inform("");
+            }
+        }
+        function inform(res)
+        {
+            document.getElementById("inform").innerHTML=res;
+        }
+        function check(frm)
+        {
+            var x = frm.expr1.value;
+            var y = frm.expr2.value;
+
+            if (isNaN(x-1))
+                inform("Giá trị nhập ở ô Số thứ nhất không phải là số");
+            // if (!isNaN(x-1))
+            else
+                 inform("");
+            if (isNaN(y-1))
+                inform("Giá trị nhập ở ô Số thứ hai không phải là số");     
+            // if (!isNaN(y-1))
+            // else
+            //      inform("");
+        }
+    
+    </script>
+
